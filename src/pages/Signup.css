@@ -1,0 +1,68 @@
+.signup-container {
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+}
+
+.signup-card {
+  max-width: 500px;
+  width: 100%;
+}
+
+.field-error {
+  color: #dc3545;
+  font-size: 14px;
+  margin-top: 5px;
+}
+
+input.error,
+select.error {
+  border-color: #dc3545 !important;
+}
+
+select {
+  width: 100%;
+  padding: 15px;
+  border: 2px solid #ddd;
+  border-radius: 10px;
+  font-size: 16px;
+  background: white;
+  cursor: pointer;
+}
+
+select:focus {
+  border-color: #667eea;
+  outline: none;
+}
+
+.password-requirements {
+  background: #f8f9fa;
+  border-radius: 8px;
+  padding: 15px;
+  margin-top: 10px;
+  font-size: 14px;
+}
+
+.password-requirements h4 {
+  margin-bottom: 10px;
+  color: #333;
+  font-size: 14px;
+}
+
+.password-requirements div {
+  margin: 5px 0;
+  padding: 3px 0;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.valid {
+  color: #28a745;
+}
+
+.invalid {
+  color: #6c757d;
+}
