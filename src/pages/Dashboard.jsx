@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import toast from "react-hot-toast";
 import "./Dashboard.css";
 
 const Dashboard = () => {
@@ -18,8 +19,12 @@ const Dashboard = () => {
   }, [navigate]);
 
   const handleLogout = () => {
+    toast.success("Logged out successfully!");
     localStorage.removeItem("user");
-    navigate("/login");
+
+    setTimeout(() => {
+      navigate("/login");
+    }, 1000);
   };
 
   if (!user) {

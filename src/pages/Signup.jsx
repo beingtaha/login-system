@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import toast, { Toaster } from "react-hot-toast";
 import "./Signup.css";
 
 const Signup = () => {
@@ -47,7 +48,6 @@ const Signup = () => {
       [name]: value,
     });
 
-    // Clear error for this field
     if (errors[name]) {
       setErrors({
         ...errors,
@@ -60,7 +60,7 @@ const Signup = () => {
     e.preventDefault();
     const newErrors = {};
 
-    // Validate all fields
+    // Validate each field
     if (!formData.username.trim()) newErrors.username = "Username is required";
     if (!formData.email.trim()) newErrors.email = "Email is required";
     else if (!validateEmail(formData.email))
@@ -79,29 +79,57 @@ const Signup = () => {
 
     if (Object.keys(newErrors).length > 0) {
       setErrors(newErrors);
+      toast.error("Please fix all errors before submitting");
       return;
     }
 
-    // Simulate signup (Replace with backend API later)
-    console.log("Signup data:", formData);
+    // Success
+    toast.success("Account created successfully! Redirecting to login...");
 
-    // Store user data (simulated)
+    // Store user data
     localStorage.setItem("user", JSON.stringify(formData));
 
-    // Redirect to login
-    navigate("/login");
+    // Redirect after delay
+    setTimeout(() => {
+      navigate("/login");
+    }, 2000);
   };
 
   const passwordValidation = validatePassword(formData.password);
 
   return (
     <div className="signup-container">
+      <Toaster
+        position="top-right"
+        toastOptions={{
+          duration: 4000,
+          style: {
+            background: "#363636",
+            color: "#fff",
+            fontSize: "16px",
+            padding: "16px 24px",
+            borderRadius: "10px",
+          },
+          success: {
+            iconTheme: {
+              primary: "#4CAF50",
+              secondary: "#fff",
+            },
+          },
+          error: {
+            iconTheme: {
+              primary: "#ff4757",
+              secondary: "#fff",
+            },
+          },
+        }}
+      />
+
       <div className="card signup-card">
         <h2 className="title">Create Account 🚀</h2>
         <p className="subtitle">Join us today!</p>
 
         <form onSubmit={handleSubmit}>
-          {/* Username */}
           <div className="input-group">
             <label htmlFor="username">Username *</label>
             <input
@@ -118,7 +146,6 @@ const Signup = () => {
             )}
           </div>
 
-          {/* Email */}
           <div className="input-group">
             <label htmlFor="email">Email *</label>
             <input
@@ -133,7 +160,6 @@ const Signup = () => {
             {errors.email && <div className="field-error">{errors.email}</div>}
           </div>
 
-          {/* Password */}
           <div className="input-group">
             <label htmlFor="password">Password *</label>
             <input
@@ -146,7 +172,6 @@ const Signup = () => {
               className={errors.password ? "error" : ""}
             />
 
-            {/* Password Requirements */}
             <div className="password-requirements">
               <h4>Password must contain:</h4>
               <div
@@ -193,7 +218,6 @@ const Signup = () => {
             )}
           </div>
 
-          {/* Phone */}
           <div className="input-group">
             <label htmlFor="phone">Phone Number *</label>
             <input
@@ -208,7 +232,6 @@ const Signup = () => {
             {errors.phone && <div className="field-error">{errors.phone}</div>}
           </div>
 
-          {/* Gender */}
           <div className="input-group">
             <label htmlFor="gender">Gender *</label>
             <select
@@ -222,7 +245,6 @@ const Signup = () => {
               <option value="male">Male</option>
               <option value="female">Female</option>
               <option value="other">Other</option>
-              <option value="prefer-not-to-say">Prefer not to say</option>
             </select>
             {errors.gender && (
               <div className="field-error">{errors.gender}</div>
